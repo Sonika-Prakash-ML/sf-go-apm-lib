@@ -19,5 +19,7 @@ const (
 
 // apm environment variable values
 const (
-	GlobalLabels = "_tag_projectName=%s,_tag_appName=%s,_tag_profileId=%s"
+	GlobalLabels           = "_tag_projectName=%s,_tag_appName=%s,_tag_profileId=%s"
+	ElasticAPMServerURL    = "ELASTIC_APM_SERVER_URL"
+	ElasticAPMGlobalLabels = "ELASTIC_APM_GLOBAL_LABELS"
 )

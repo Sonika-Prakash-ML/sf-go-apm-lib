@@ -1,12 +1,5 @@
 package sfapmpkg
 
-// SfData holds the profile data and tags
-type SfData struct {
-	projectName string
-	appName     string
-	profileData string
-}
-
 // Tags holds the project name and app name as provided in config.yaml
 type Tags map[string]string
 

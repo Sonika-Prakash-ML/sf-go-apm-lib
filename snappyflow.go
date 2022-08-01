@@ -27,8 +27,8 @@ func LoadConfigFromFile(path string) (*Config, error) {
 	return &config, nil
 }
 
-// InitDefault sets the values from config.yaml
-func (sf *SfData) InitDefault() {
+// InitDefault sets the values from sfagent's config.yaml
+func InitDefault() {
 	var configPath string
 	var osType string
 	var config *Config
@@ -37,6 +37,9 @@ func (sf *SfData) InitDefault() {
 	host, err := host.Info()
 	if err == nil && host != nil {
 		osType = host.OS
+	} else {
+		fmt.Println("Error while getting the host info:", err)
+		os.Exit(1)
 	}
 	if osType == "windows" {
 		configPath = WindowsConfigPath
@@ -51,22 +54,25 @@ func (sf *SfData) InitDefault() {
 	fmt.Println("profile key:", config.SnappyFlowKey)
 	fmt.Println("tags:", config.Tags)
 
-	traceServerURL, profileID, err := GetProfileData(config.SnappyFlowKey)
+	traceServerURL, profileID, err := getProfileData(config.SnappyFlowKey)
 	if err != nil {
 		fmt.Println("Error while decrypting key:", err)
 		os.Exit(1)
 	}
-	err = SetEnvVariables(traceServerURL, profileID, config.Tags)
+	err = setEnvVariables(traceServerURL, profileID, config.Tags)
+	if err != nil {
+		os.Exit(1)
+	}
 }
 
-func GetProfileData(key string) (string, string, error) {
+func getProfileData(key string) (string, string, error) {
 	decryptedKey, err := base64.StdEncoding.DecodeString(EncryptedKey)
 	if err != nil {
 		fmt.Println("Unable to decrypyt EncryptedKey:", err)
 		return "", "", err
 	}
 	fmt.Println("decryptedKey:", string(decryptedKey))
-	data, err := DecryptKey(key, decryptedKey)
+	data, err := decryptKey(key, decryptedKey)
 	if err != nil {
 		fmt.Println("unable to decrypt key:", err)
 		return "", "", err
@@ -82,14 +88,23 @@ func GetProfileData(key string) (string, string, error) {
 	return keydata.TraceServer, keydata.ProfileID, nil
 }
 
-func SetEnvVariables(traceURL string, profileID string, tags Tags) error {
+func setEnvVariables(traceURL string, profileID string, tags Tags) error {
 	globalLabels := fmt.Sprintf(GlobalLabels, tags[ProjectName], tags[AppName], profileID)
 	fmt.Println("global labels:", globalLabels)
+
+	err := os.Setenv("TEST_APM_SERVER_URL", traceURL)
+	err = os.Setenv("TEST_APM_GLOBAL_LABELS", globalLabels)
+	if err != nil {
+		fmt.Println("error while setting environment variables:", err)
+		return err
+	}
+	fmt.Println("url env:", os.Getenv("TEST_APM_SERVER_URL"))
+	fmt.Println("tags env:", os.Getenv("TEST_APM_GLOBAL_LABELS"))
 
 	return nil
 }
 
-func DecryptKey(rawData string, key []byte) (string, error) {
+func decryptKey(rawData string, key []byte) (string, error) {
 	data, err := base64.StdEncoding.DecodeString(rawData)
 	if err != nil {
 		return "", err
