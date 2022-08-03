@@ -25,6 +25,5 @@ type SnappyFlowKeyData struct {
 	Owner       string `json:"owner"`
 	ES_7x       bool   `json:"es_7x"`
 	TraceServer string `json:"trace_server_url"`
-	KeyVersion  string `json:"version"`
 	KeyTime     int    `json:"time"`
 }

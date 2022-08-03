@@ -22,7 +22,7 @@ const (
 	GlobalLabels           = "_tag_projectName=%s,_tag_appName=%s,_tag_profileId=%s"
 	ElasticAPMServerURL    = "ELASTIC_APM_SERVER_URL"
 	ElasticAPMGlobalLabels = "ELASTIC_APM_GLOBAL_LABELS"
-	// SfProjectName          = "SF_PROJECT_NAME"
-	// SfAppName              = "SF_APP_NAME"
-	// SfProfileKey           = "SF_PROFILE_KEY"
+	SfProjectName          = "SF_PROJECT_NAME"
+	SfAppName              = "SF_APP_NAME"
+	SfProfileKey           = "SF_PROFILE_KEY"
 )
