@@ -14,7 +14,7 @@ This package needs to be imported as a blank import solely for its initializatio
 
 - **Pre-requisite**
 
-    - run below command to download or update the sf-go-apm-lib package in your current project.
+    Run below command to download or update the sf-go-apm-lib package in your current project.
         ```bash
         go get https://github.com/Sonika-dot-Prakash/sf-go-apm-lib
         ```
