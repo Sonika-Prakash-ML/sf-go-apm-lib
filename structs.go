@@ -11,19 +11,6 @@ type Config struct {
 
 // SnappyFlowKeyData struct holds content after decryption
 type SnappyFlowKeyData struct {
-	Host        string `json:"host"`
-	URL         string `json:"url"`
-	Port        int    `json:"port"`
-	ApmServer   string `json:"apm_server"`
-	ApmPort     int    `json:"apm_port"`
-	Type        string `json:"type"`
 	ProfileID   string `json:"profile_id"`
-	Username    string `json:"username"`
-	Password    string `json:"password"`
-	Protocol    string `json:"protocol"`
-	Token       string `json:"token"`
-	Owner       string `json:"owner"`
-	ES_7x       bool   `json:"es_7x"`
 	TraceServer string `json:"trace_server_url"`
-	KeyTime     int    `json:"time"`
 }
