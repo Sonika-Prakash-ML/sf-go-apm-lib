@@ -1,4 +1,4 @@
-package sfapmpkg
+package sfapmlib
 
 import (
 	"crypto/aes"

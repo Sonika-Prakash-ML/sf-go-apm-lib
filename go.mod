@@ -1,4 +1,4 @@
-module sfapmpkg
+module github.com/Sonika-dot-Prakash/sf-go-apm-lib
 
 go 1.16
 

@@ -1,4 +1,4 @@
-package sfapmpkg
+package sfapmlib
 
 // sf decryption key
 const (

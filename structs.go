@@ -1,4 +1,4 @@
-package sfapmpkg
+package sfapmlib
 
 // Tags holds the project name and app name as provided in config.yaml
 type Tags map[string]string
